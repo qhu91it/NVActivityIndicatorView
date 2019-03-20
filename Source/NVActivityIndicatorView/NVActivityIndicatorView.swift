@@ -422,6 +422,9 @@ public final class NVActivityIndicatorView: UIView {
     /// Animation type.
     public var type: NVActivityIndicatorType = NVActivityIndicatorView.DEFAULT_TYPE
 
+    /// Custom animation indicator
+    public var customType: NVActivityIndicatorAnimationDelegate? = nil
+    
     @available(*, unavailable, message: "This property is reserved for Interface Builder. Use 'type' instead.")
     @IBInspectable var typeName: String {
         get {
@@ -477,6 +480,23 @@ public final class NVActivityIndicatorView: UIView {
         self.padding = padding ?? NVActivityIndicatorView.DEFAULT_PADDING
         super.init(frame: frame)
         isHidden = true
+    }
+    
+    /**
+     Create a activity indicator view with specified frame, type, color and padding.
+     
+     - parameter frame: view's frame.
+     - parameter customType: custom animation type, conforms to NVActivityIndicatorAnimationDelegate.
+     - parameter color: color of activity indicator view. Default color is white.
+     - parameter padding: view's padding. Default padding is 0.
+     
+     - returns: The activity indicator view.
+     */
+    public init(frame: CGRect, type: NVActivityIndicatorAnimationDelegate, color: UIColor? = nil, padding: CGFloat? = nil) {
+        self.customType = type
+        self.color = color ?? NVActivityIndicatorView.DEFAULT_COLOR
+        self.padding = padding ?? NVActivityIndicatorView.DEFAULT_PADDING
+        super.init(frame: frame)
     }
 
     // Fix issue #62
@@ -546,7 +566,7 @@ public final class NVActivityIndicatorView: UIView {
     // MARK: Privates
 
     private final func setUpAnimation() {
-        let animation: NVActivityIndicatorAnimationDelegate = type.animation()
+        let animation: NVActivityIndicatorAnimationDelegate = self.customType ?? type.animation()
         #if swift(>=4.2)
         var animationRect = frame.inset(by: UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding))
         #else
