@@ -423,8 +423,8 @@ public final class NVActivityIndicatorView: UIView {
     public var type: NVActivityIndicatorType = NVActivityIndicatorView.DEFAULT_TYPE
 
     /// Custom animation indicator
-    public var customType: NVActivityIndicatorAnimationDelegate? = nil
-    
+    public var customType: NVActivityIndicatorAnimationDelegate?
+
     @available(*, unavailable, message: "This property is reserved for Interface Builder. Use 'type' instead.")
     @IBInspectable var typeName: String {
         get {
@@ -442,7 +442,7 @@ public final class NVActivityIndicatorView: UIView {
     @IBInspectable public var padding: CGFloat = NVActivityIndicatorView.DEFAULT_PADDING
 
     /// Current status of animation, read-only.
-    @available(*, deprecated: 3.1)
+    @available(*, deprecated)
     public var animating: Bool { return isAnimating }
 
     /// Current status of animation, read-only.
@@ -481,7 +481,7 @@ public final class NVActivityIndicatorView: UIView {
         super.init(frame: frame)
         isHidden = true
     }
-    
+
     /**
      Create a activity indicator view with specified frame, type, color and padding.
      
